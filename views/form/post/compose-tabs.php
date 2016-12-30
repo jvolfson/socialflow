@@ -16,6 +16,7 @@ $grouped_accounts = $data['grouped_accounts'];
 $post             = $data['post'];
 $SocialFlow_Post  = $data['SocialFlow_Post'];
 
+$grouped_accounts = array();
 ?>
 <ul class="compose-tabs" id="sf-compose-tabs">
 	<?php foreach ( $grouped_accounts as $group => $group_accounts ) : ?>

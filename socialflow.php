@@ -20,7 +20,7 @@ Domain Path: /i18n
  * @since 2.1
  */
 if ( !defined( 'SF_VERSION' ) )
-	define( 'SF_VERSION', '2.7.3' );
+	define( 'SF_VERSION', '2.7.4' );
 
 /**
  * The name of the SocialFlow Core file
