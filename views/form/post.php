@@ -14,7 +14,7 @@
  * @since 2.0
  */
 global $socialflow, $pagenow;
-
+ 
 $grouped_accounts = $data['grouped_accounts'];
 $post             = $data['post'];
 $SocialFlow_Post  = $data['SocialFlow_Post'];
@@ -43,7 +43,7 @@ update_post_meta( $post->ID, 'socialflow_nonce', $nonce );
 	</label>
 </p>
 
-<?php if ( 'attachment' !== $post->post_type ) : ?>
+<?php if ( false && 'attachment' !== $post->post_type ) : ?>
 	<p class="sf-media-toggle-container"> 
 		<input id="sf_media_compose" class="sf_media_compose" type="checkbox" value="1" name="socialflow[compose_media]" <?php checked( get_post_meta( $post->ID, 'sf_compose_media', true ), 1 ); ?> />
 		<label for="sf_media_compose"><?php esc_html_e( 'Image Post', 'socialflow' ) ?></label>
