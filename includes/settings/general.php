@@ -63,7 +63,7 @@ class SocialFlow_Admin_Settings_General extends SocialFlow_Admin_Settings_Page {
 		add_settings_field( 
 			'publish_option',
 			esc_attr__( 'Default Publishing Option:', 'socialflow' ),
-			array( &$this, 'settings_field_publish_option' ),
+			array( $this, 'settings_field_publish_option' ),
 			$this->slug,
 			'general_settings_section',
 			$this->get_publish_options() // The array of arguments to pass to the callback.
@@ -72,7 +72,7 @@ class SocialFlow_Admin_Settings_General extends SocialFlow_Admin_Settings_Page {
 		add_settings_field( 
 			'optimize_publish_option_advanced',
 			null,
-			array( &$this, 'settings_field_optimize_publish_option' ),
+			array( $this, 'settings_field_optimize_publish_option' ),
 			$this->slug,
 			'general_settings_section',
 			$this->get_publish_options() // The array of arguments to pass to the callback.
@@ -81,7 +81,7 @@ class SocialFlow_Admin_Settings_General extends SocialFlow_Admin_Settings_Page {
 		add_settings_field( 
 			'compose_now',
 			esc_attr__( 'Send to SocialFlow when the post is published:', 'socialflow' ),
-			array( &$this, 'settings_field_compose_now_option' ),
+			array( $this, 'settings_field_compose_now_option' ),
 			$this->slug,
 			'general_settings_section'
 		);
@@ -89,7 +89,7 @@ class SocialFlow_Admin_Settings_General extends SocialFlow_Admin_Settings_Page {
 		add_settings_field( 
 			'shorten_links',
 			esc_attr__( 'Shorten Links:', 'socialflow' ),
-			array( &$this, 'settings_field_shorten_links_option' ),
+			array( $this, 'settings_field_shorten_links_option' ),
 			$this->slug,
 			'general_settings_section'
 		);
@@ -97,10 +97,35 @@ class SocialFlow_Admin_Settings_General extends SocialFlow_Admin_Settings_Page {
 		add_settings_field( 
 			'post_type',
 			esc_attr__( 'Enable plugin for this post types:', 'socialflow' ),
-			array( &$this, 'settings_field_post_type_option' ),
+			array( $this, 'settings_field_post_type_option' ),
 			$this->slug,
 			'general_settings_section'
 		);
+
+		add_settings_field( 
+			'global_disable_autocomplete',
+			esc_attr__( 'Disable autocomplete:', 'socialflow' ),
+			array( $this, 'settings_field_disable_autocomplete_option' ),
+			$this->slug,
+			'general_settings_section'
+		);
+
+		// add_settings_field( 
+		// 	'image_url_query',
+		// 	esc_attr__( 'Image url query:', 'socialflow' ),
+		// 	array( $this, 'settings_field_image_url_query_option' ),
+		// 	$this->slug,
+		// 	'general_settings_section'
+		// );
+	}
+
+	/**
+	 * Add image url postfix
+	 * @return void
+	 */
+	public function settings_field_image_url_query_option( $args = array() ) {
+		global $socialflow;
+		?>image.jpg<b>?</b><input id="sf_image_url_query" type="text" placeholder="arg=test&size=small" value="<?php echo $socialflow->options->get( 'image_url_query' ) ?>" name="socialflow[image_url_query]" /><?php
 	}
 
 	/**
@@ -120,14 +145,15 @@ class SocialFlow_Admin_Settings_General extends SocialFlow_Admin_Settings_Page {
 		<?php
 	}
 
+
 	public function settings_field_optimize_publish_option() {
 		global $socialflow;
 
 		// grouped options
-		$must_send = $socialflow->options->get('must_send');
-		$optimize_period = $socialflow->options->get('optimize_period');
-		$optimize_start_date = $socialflow->options->get('optimize_start_date');
-		$optimize_end_date = $socialflow->options->get('optimize_end_date');
+		$must_send           = $socialflow->options->get( 'must_send' );
+		$optimize_period     = $socialflow->options->get( 'optimize_period' );
+		$optimize_start_date = $socialflow->options->get( 'optimize_start_date' );
+		$optimize_end_date   = $socialflow->options->get( 'optimize_end_date' );
 
 		?><div class="optimize" <?php if ( 'optimize' != $socialflow->options->get( 'publish_option' ) ) echo 'style="display:none;"' ?> id="js-optimize-options">
 			<input id="sf_must_send" type="checkbox" value="1" name="socialflow[must_send]" <?php checked( 1, $must_send ); ?> />
@@ -185,6 +211,11 @@ class SocialFlow_Admin_Settings_General extends SocialFlow_Admin_Settings_Page {
 			<label for="sf_post_types-<?php echo esc_attr( $type ); ?>"><?php echo esc_attr( $post_type->labels->name ); ?></label>
 			<br>
 		<?php endforeach;
+	}
+
+	public function settings_field_disable_autocomplete_option() {
+		global $socialflow;
+		?><input id="sf_global_disable_autocomplete" type="checkbox" value="1" name="socialflow[global_disable_autocomplete]" <?php checked( 1, $socialflow->options->get( 'global_disable_autocomplete' ) ) ?> /><?php
 	}
 
 	/**
@@ -299,6 +330,7 @@ class SocialFlow_Admin_Settings_General extends SocialFlow_Admin_Settings_Page {
 			$settings['shorten_links'] = isset( $data['shorten_links'] ) ? absint( $data['shorten_links']) : 0;
 			$settings['must_send'] = isset( $data['must_send'] ) ? absint( $data['must_send'] ) : 0;
 			$settings['compose_now'] = isset( $data['compose_now'] ) ? absint( $data['compose_now'] ) : 0;
+			$settings['global_disable_autocomplete'] = isset( $data['global_disable_autocomplete'] ) ? absint( $data['global_disable_autocomplete'] ) : 0;
 		}
 
 		return $settings;
@@ -308,12 +340,12 @@ class SocialFlow_Admin_Settings_General extends SocialFlow_Admin_Settings_Page {
 	 * Available publish options
 	 * @return array Publish options with labels
 	 */
-	public function get_publish_options() {
+	public static function get_publish_options() {
 		return array(
-			'optimize' => esc_attr__( 'Optimize', 'socialflow' ),
+			'optimize'    => esc_attr__( 'Optimize', 'socialflow' ),
 			'publish now' => esc_attr__( 'Publish Now', 'socialflow' ),
-			'hold' => esc_attr__( 'Hold', 'socialflow' ),
-			'schedule' => esc_attr__( 'Schedule', 'socialflow' ),
+			'hold'        => esc_attr__( 'Hold', 'socialflow' ),
+			'schedule'    => esc_attr__( 'Schedule', 'socialflow' ),
 		);
 	}
 
@@ -321,14 +353,14 @@ class SocialFlow_Admin_Settings_General extends SocialFlow_Admin_Settings_Page {
 	 * Available optimize periods
 	 * @return array Optimize perfiods with labels
 	 */
-	public function get_optimize_periods() {
+	public static function get_optimize_periods() {
 		return array(
 			'10 minutes' => esc_attr__( '10 minutes', 'socialflow' ),
-			'1 hour' => esc_attr__( '1 hour', 'socialflow' ),
-			'1 day' => esc_attr__( '1 day', 'socialflow' ),
-			'1 week' => esc_attr__( '1 week', 'socialflow' ),
-			'anytime' => esc_attr__( 'Anytime', 'socialflow' ),
-			'range' => esc_attr__( 'Pick a range', 'socialflow' )
+			'1 hour'     => esc_attr__( '1 hour', 'socialflow' ),
+			'1 day'      => esc_attr__( '1 day', 'socialflow' ),
+			'1 week'     => esc_attr__( '1 week', 'socialflow' ),
+			'anytime'    => esc_attr__( 'Anytime', 'socialflow' ),
+			'range'      => esc_attr__( 'Pick a range', 'socialflow' )
 		);
 	}
 
