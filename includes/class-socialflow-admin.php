@@ -100,7 +100,7 @@ class SocialFlow_Admin {
 		if ( in_array( $pagenow, array( 'post.php', 'post-new.php', 'admin.php', 'edit.php', 'options-general.php', 'upload.php' ) ) ) {
 
 			// Enqueue neccessary scripts 
-			wp_enqueue_script( 'timepicker', plugins_url( 'assets/js/jquery.timepicker.js', SF_FILE ), array( 'jquery', 'jquery-ui-slider', 'jquery-ui-datepicker'), true );
+			// wp_enqueue_script( 'timepicker', plugins_url( 'assets/js/jquery.timepicker.js', SF_FILE ), array( 'jquery', 'jquery-ui-slider', 'jquery-ui-datepicker'), true );
 			wp_enqueue_script( 'jquery.maxlength', plugins_url( 'assets/js/jquery.maxlength.js', SF_FILE ), array( 'jquery'), '1.0.5', true );
 			wp_enqueue_script( 'socialflow-slider', plugins_url( 'assets/js/thumb-slider.js', SF_FILE ), array( 'jquery'), '1.1.5', true );
 
