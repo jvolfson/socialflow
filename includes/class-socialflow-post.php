@@ -327,57 +327,57 @@ class SocialFlow_Post {
 		update_post_meta( $post_id, 'sf_disable_autcomplete', absint( isset( $data['disable_autcomplete'] ) ) );
 
 		// Collect and save all socialflow messages
-		// if ( isset( $data['message'] ) ) {
-		// 	foreach ( $data['message'] as $key => $value ) {
-		// 		update_post_meta( $post_id, "sf_message_{$key}", trim( sanitize_text_field( $value ) ) );
-		// 	}
-		// }
+		if ( isset( $data['message'] ) ) {
+			foreach ( $data['message'] as $key => $value ) {
+				update_post_meta( $post_id, "sf_message_{$key}", trim( sanitize_text_field( $value ) ) );
+			}
+		}
 
 		// Collect and save all socialflow messages postfix
 		// Used only by twitter
-		// if ( isset( $data['message_postfix'] ) ) {
-		// 	foreach ( $data['message_postfix'] as $key => $value ) {
-		// 		update_post_meta( $post_id, "sf_message_postfix_{$key}", trim( sanitize_text_field( $value ) ) );
-		// 	}
-		// }
+		if ( isset( $data['message_postfix'] ) ) {
+			foreach ( $data['message_postfix'] as $key => $value ) {
+				update_post_meta( $post_id, "sf_message_postfix_{$key}", trim( sanitize_text_field( $value ) ) );
+			}
+		}
 
 		// Collect and save all socialflow titles
-		// if ( isset( $data['title'] ) ) {
-		// 	foreach ( $data['title'] as $key => $value ) {
-		// 		update_post_meta( $post_id, "sf_title_{$key}", trim( sanitize_text_field( $value ) ) );
-		// 	}
-		// }
+		if ( isset( $data['title'] ) ) {
+			foreach ( $data['title'] as $key => $value ) {
+				update_post_meta( $post_id, "sf_title_{$key}", trim( sanitize_text_field( $value ) ) );
+			}
+		}
 
 		// Collect and save all socialflow descriptions
-		// if ( isset( $data['description'] ) ) {
-		// 	foreach ( $data['description'] as $key => $value ) {
-		// 		update_post_meta( $post_id, "sf_description_{$key}", trim( sanitize_text_field( $value ) ) );
-		// 	}
-		// }
+		if ( isset( $data['description'] ) ) {
+			foreach ( $data['description'] as $key => $value ) {
+				update_post_meta( $post_id, "sf_description_{$key}", trim( sanitize_text_field( $value ) ) );
+			}
+		}
 
 		// Collect and save all images
-		// if ( isset( $data['image'] ) ) {
-		// 	foreach ( $data['image'] as $key => $value ) {
-		// 		update_post_meta( $post_id, "sf_image_{$key}", trim( sanitize_text_field( $value ) ) );
-		// 	}
-		// }
+		if ( isset( $data['image'] ) ) {
+			foreach ( $data['image'] as $key => $value ) {
+				update_post_meta( $post_id, "sf_image_{$key}", trim( sanitize_text_field( $value ) ) );
+			}
+		}
 
 		// Custom image or one of attachments
-		// if ( isset( $data['is_custom_image'] ) ) {
-		// 	foreach ( $data['is_custom_image'] as $key => $value ) {
-		// 		update_post_meta( $post_id, "sf_is_custom_image_{$key}", absint( $value ) );
-		// 	}
-		// }
-		// if ( isset( $data['custom_image'] ) ) {
-		// 	foreach ( $data['custom_image'] as $key => $value ) {
-		// 		update_post_meta( $post_id, "sf_custom_image_{$key}", sanitize_text_field( $value ) );
-		// 	}
-		// }
-		// if ( isset( $data['custom_image_filename'] ) ) {
-		// 	foreach ( $data['custom_image_filename'] as $key => $value ) {
-		// 		update_post_meta( $post_id, "sf_custom_image_filename_{$key}", sanitize_text_field( $value ) );
-		// 	}
-		// }
+		if ( isset( $data['is_custom_image'] ) ) {
+			foreach ( $data['is_custom_image'] as $key => $value ) {
+				update_post_meta( $post_id, "sf_is_custom_image_{$key}", absint( $value ) );
+			}
+		}
+		if ( isset( $data['custom_image'] ) ) {
+			foreach ( $data['custom_image'] as $key => $value ) {
+				update_post_meta( $post_id, "sf_custom_image_{$key}", sanitize_text_field( $value ) );
+			}
+		}
+		if ( isset( $data['custom_image_filename'] ) ) {
+			foreach ( $data['custom_image_filename'] as $key => $value ) {
+				update_post_meta( $post_id, "sf_custom_image_filename_{$key}", sanitize_text_field( $value ) );
+			}
+		}
 
 		// Save ids of enabled accounts
 		$send = isset( $data['send'] ) ? array_map( 'absint', $data['send'] ) : array(  );

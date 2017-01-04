@@ -16,7 +16,7 @@ $grouped_accounts = $data['grouped_accounts'];
 $post             = $data['post'];
 $SocialFlow_Post  = $data['SocialFlow_Post'];
 
-$grouped_accounts = array();
+// $grouped_accounts = array();
 ?>
 <ul class="compose-tabs" id="sf-compose-tabs">
 	<?php foreach ( $grouped_accounts as $group => $group_accounts ) : ?>
@@ -43,7 +43,7 @@ foreach ( $grouped_accounts as $group => $group_accounts ) :
 			<span class="sf-muted-text"><?php esc_html_e( '* Metadata title and description are not editable for G+', 'socialflow' ); ?></span>
 		<?php endif; ?>
 
-		<?php if ( in_array( $group, array( 'google_plus', 'facebook', 'linkedin' ) ) ) :
+		<?php if ( false && in_array( $group, array( 'google_plus', 'facebook', 'linkedin' ) ) ) :
 
 			if ( in_array( $group, array( 'facebook', 'linkedin' ) ) ) {
 				$title       = get_post_meta( $post->ID, 'sf_title_'.$group, true );
